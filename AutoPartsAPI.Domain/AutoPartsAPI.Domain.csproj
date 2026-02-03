@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="DTO\Auth\" />
+    <Folder Include="DTO\Create\" />
+    <Folder Include="DTO\Update\" />
+    <Folder Include="DTO\Read\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Interfaces\Helpers\" />
+    <Folder Include="Interfaces\Services\" />
+    <Folder Include="Validators\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="AutoPartsAPI.Domain/AutoPartsAPI.Domain.csproj" />
+  <Project Path="AutoPartsAPI.Infrastructure/AutoPartsAPI.Infrastructure.csproj" />
+  <Project Path="AutoPartsAPI/AutoPartsAPI.csproj" />
+</Solution>
