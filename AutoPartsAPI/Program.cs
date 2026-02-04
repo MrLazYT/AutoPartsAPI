@@ -34,7 +34,7 @@ namespace AutoPartsAPI
 
             app.UseHttpsRedirection();
 
-            app.UseCors();
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 
