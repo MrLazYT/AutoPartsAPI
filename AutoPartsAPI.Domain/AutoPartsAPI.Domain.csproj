@@ -8,14 +8,16 @@
 
   <ItemGroup>
     <Folder Include="DTO\Auth\" />
-    <Folder Include="DTO\Create\" />
-    <Folder Include="DTO\Update\" />
-    <Folder Include="DTO\Read\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Interfaces\Helpers\" />
-    <Folder Include="Interfaces\Services\" />
     <Folder Include="Validators\" />
-    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="16.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoPartsAPI.Infrastructure\AutoPartsAPI.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

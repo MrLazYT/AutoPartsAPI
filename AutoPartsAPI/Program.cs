@@ -1,3 +1,13 @@
+using AutoPartsAPI.Domain.Helpers;
+using AutoPartsAPI.Domain.Interfaces.Services;
+using AutoPartsAPI.Domain.Services;
+using AutoPartsAPI.Infrastructure.Data;
+using AutoPartsAPI.Infrastructure.Entities;
+using AutoPartsAPI.Infrastructure.Interfaces;
+using AutoPartsAPI.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 namespace AutoPartsAPI
 {
     public class Program
@@ -11,6 +21,17 @@ namespace AutoPartsAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddDbContext<AutoPartsDBContext>(options =>
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection")
+                )
+            );
+
+            builder.Services
+                .AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<AutoPartsDBContext>()
+                .AddDefaultTokenProviders();
+
             builder.Services.AddCors(options => options.AddPolicy(
                 "CorsPolicy",
                 builder =>
@@ -21,6 +42,15 @@ namespace AutoPartsAPI
                 }
                 )
             );
+
+            builder.Services.AddAutoMapper(
+                cfg => cfg.LicenseKey = builder.Configuration["AutoMapper:LicenseKey"],
+                typeof(MappingProfile)
+            );
+
+            builder.Services.AddScoped<IUserService, UserService>();
+
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             var app = builder.Build();
 
