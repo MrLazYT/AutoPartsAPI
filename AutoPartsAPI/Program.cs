@@ -1,23 +1,30 @@
-public partial class Program
+namespace AutoPartsAPI
 {
-    private static void Main(string[] args)
+    public class Program
     {
-        var builder = WebApplication.CreateBuilder(args);
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
+            // Add services to the container.
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
-        builder.Services.AddControllers();
+            var app = builder.Build();
 
-        var app = builder.Build();
+                app.UseSwagger();
+                app.UseSwaggerUI();
 
-        // Configure the HTTP request pipeline.
+            // Configure the HTTP request pipeline.
 
-        app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
-        app.UseAuthorization();
+            app.UseAuthorization();
 
-        app.MapControllers();
+            app.MapControllers();
 
-        app.Run();
+            app.Run();
+        }
     }
 }
