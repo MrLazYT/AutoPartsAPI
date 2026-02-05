@@ -10,8 +10,8 @@ namespace AutoPartsAPI.Domain.Services
 {
     public class UserService : IUserService
     {
-        public readonly IMapper _mapper;
-        public readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepository;
 
         public UserService(IMapper mapper, IUserRepository userRepository)
         {

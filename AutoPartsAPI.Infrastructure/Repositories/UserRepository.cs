@@ -10,7 +10,7 @@ namespace AutoPartsAPI.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public readonly AutoPartsDBContext _context;
+        private readonly AutoPartsDBContext _context;
 
         public UserRepository(AutoPartsDBContext context)
         {

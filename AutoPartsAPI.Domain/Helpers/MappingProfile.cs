@@ -10,7 +10,10 @@ namespace AutoPartsAPI.Domain.Helpers
     {
         public MappingProfile()
         {
-            CreateMap<User, CreateUserDto>().ReverseMap();
+            CreateMap<User, CreateUserDto>()
+                .ReverseMap()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
+            
             CreateMap<User, ReadUserDto>().ReverseMap();
             CreateMap<User, UpdateUserDto>().ReverseMap();
         }

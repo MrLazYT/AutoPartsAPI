@@ -10,7 +10,7 @@ namespace AutoPartsAPI.Controllers
     [Route("api/[controller]")]
     public class UserController: ControllerBase
     {
-        public readonly IUserService _service;
+        private readonly IUserService _service;
 
         public UserController(IUserService service)
         {
@@ -26,9 +26,9 @@ namespace AutoPartsAPI.Controllers
         }
 
         [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetById(string id)
+        public async Task<IActionResult> GetById(string userId)
         {
-            ReadUserDto user = await _service.GetById(id);
+            ReadUserDto user = await _service.GetById(userId);
 
             return Ok(user);
         }
