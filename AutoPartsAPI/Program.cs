@@ -49,8 +49,10 @@ namespace AutoPartsAPI
             );
 
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IOrderStatusService, OrderStatusService>();
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IEntityRepository<OrderStatus>, OrderStatusRepository>();
 
             var app = builder.Build();
 
