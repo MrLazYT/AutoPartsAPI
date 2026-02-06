@@ -31,33 +31,35 @@ namespace AutoPartsAPI.Infrastructure.Repositories
             return users;
         }
 
-        public async Task AddAsync(User user)
+        public async Task<User> AddAsync(User user)
         {
             await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+
+            return user;
         }
 
-        public Task UpdateAsync(User user)
+        public async Task<User> UpdateAsync(User user)
         {
             _context.Users.Update(user);
+            await _context.SaveChangesAsync();
 
-            return Task.CompletedTask;
+            return user;
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task<User?> DeleteAsync(string id)
         {
             User? user = await GetByIdAsync(id);
 
-            if (user is null)
+            if (user is not null)
             {
-                throw new KeyNotFoundException($"Entity User with id={id} not found.");
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
             }
 
-            _context.Users.Remove(user);
-        }
+            
+            return user;
 
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
         }
     }
 }

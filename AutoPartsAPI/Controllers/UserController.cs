@@ -25,10 +25,10 @@ namespace AutoPartsAPI.Controllers
             return Ok(users);
         }
 
-        [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetById(string userId)
+        [HttpGet("user/{id}")]
+        public async Task<IActionResult> GetById(string id)
         {
-            ReadUserDto user = await _service.GetById(userId);
+            ReadUserDto user = await _service.GetById(id);
 
             return Ok(user);
         }
@@ -41,7 +41,7 @@ namespace AutoPartsAPI.Controllers
             return Ok();
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateUserDto updateUserDto)
         {
             await _service.Update(updateUserDto);
@@ -49,7 +49,7 @@ namespace AutoPartsAPI.Controllers
             return Ok();
         }
 
-        [HttpPost("delete")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             await _service.Delete(id);

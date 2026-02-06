@@ -43,7 +43,6 @@ namespace AutoPartsAPI.Domain.Services
             User user = _mapper.Map<User>(createUserDto);
 
             await _userRepository.AddAsync(user);
-            await _userRepository.SaveChangesAsync();
         }
         
         public async Task Update(UpdateUserDto updateUserDto)
@@ -51,13 +50,11 @@ namespace AutoPartsAPI.Domain.Services
             User user = _mapper.Map<User>(updateUserDto);
 
             await _userRepository.UpdateAsync(user);
-            await _userRepository.SaveChangesAsync();
         }
 
         public async Task Delete(string id)
         {
             await _userRepository.DeleteAsync(id);
-            await _userRepository.SaveChangesAsync();
         }
 
     }
