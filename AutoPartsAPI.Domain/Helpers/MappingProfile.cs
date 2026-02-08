@@ -17,6 +17,10 @@ namespace AutoPartsAPI.Domain.Helpers
             CreateMap<OrderStatus, CreateOrderStatusDto>().ReverseMap();
             CreateMap<OrderStatus, ReadOrderStatusDto>().ReverseMap();
             CreateMap<OrderStatus, UpdateOrderStatusDto>().ReverseMap();
+
+            CreateMap<Vendor, CreateVendorDto>().ReverseMap();
+            CreateMap<Vendor, ReadVendorDto>().ReverseMap();
+            CreateMap<Vendor, UpdateVendorDto>().ReverseMap();
         }
     }
 }

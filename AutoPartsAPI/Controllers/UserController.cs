@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AutoPartsAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/users")]
     public class UserController: ControllerBase
     {
         private readonly IUserService _service;
@@ -17,7 +17,7 @@ namespace AutoPartsAPI.Controllers
             _service = service;
         }
 
-        [HttpGet("users")]
+        [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
             List<ReadUserDto> users = await _service.GetAll();
@@ -25,12 +25,19 @@ namespace AutoPartsAPI.Controllers
             return Ok(users);
         }
 
-        [HttpGet("user/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
-            ReadUserDto user = await _service.GetById(id);
+            try
+            {
+                ReadUserDto user = await _service.GetById(id);
 
-            return Ok(user);
+                return Ok(user);
+            } catch (Exception)
+            {
+                return NotFound();
+            }
+
         }
 
         [HttpPost("create")]

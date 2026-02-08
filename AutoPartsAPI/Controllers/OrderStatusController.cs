@@ -3,59 +3,65 @@ using AutoPartsAPI.Domain.DTO.Read;
 using AutoPartsAPI.Domain.DTO.Update;
 using AutoPartsAPI.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace AutoPartsAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/order-statuses")]
     public class OrderStatusController : ControllerBase
     {
-        private readonly IOrderStatusService _service;
+        private readonly IEntityService<ReadOrderStatusDto, CreateOrderStatusDto, UpdateOrderStatusDto> _service;
         
-        public OrderStatusController(IOrderStatusService service)
+        public OrderStatusController(IEntityService<ReadOrderStatusDto, CreateOrderStatusDto, UpdateOrderStatusDto> service)
         {
             _service = service;
         }
 
-        [HttpGet("order-statuses")]
+        [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
-            List<ReadOrderStatusDto> orderStatuses = await _service.GetAll();
+            List<ReadOrderStatusDto> orderStatuses = await _service.GetAllAsync();
 
             return Ok(orderStatuses);
         }
 
-        [HttpGet("order-status/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            ReadOrderStatusDto orderStatus = await _service.GetById(id);
+            try
+            {
+                ReadOrderStatusDto orderStatus = await _service.GetByIdAsync(id);
 
-            return Ok(orderStatus);
+                return Ok(orderStatus);
+            } catch (Exception)
+            {
+                return NotFound();
+            }
+                 
         }
 
         [HttpPost("create")]
         public async Task<IActionResult> Add([FromBody] CreateOrderStatusDto createOrderStatusDto)
         {
-            await _service.Add(createOrderStatusDto);
+            CreateOrderStatusDto orderStatus = await _service.AddAsync(createOrderStatusDto);
 
-            return Ok();
+            return Ok(orderStatus);
         }
 
         [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateOrderStatusDto updateOrderStatusDto)
         {
-            await _service.Update(updateOrderStatusDto);
+            UpdateOrderStatusDto orderStatus = await _service.UpdateAsync(updateOrderStatusDto);
 
-            return Ok();
+            return Ok(orderStatus);
         }
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _service.Delete(id);
+            ReadOrderStatusDto orderStatus = await _service.DeleteAsync(id);
 
-            return Ok();
+            return Ok(orderStatus);
         }
     }
 }
