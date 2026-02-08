@@ -8,6 +8,7 @@ namespace AutoPartsAPI.Infrastructure.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<OrderStatus> OrderStatuses { get; set; }
+        public DbSet<Vendor> Vendors { get; set; }
 
         public AutoPartsDBContext(DbContextOptions<AutoPartsDBContext> options): base(options)
         {

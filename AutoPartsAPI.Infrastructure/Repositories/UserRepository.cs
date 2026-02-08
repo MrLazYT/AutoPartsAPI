@@ -2,9 +2,6 @@
 using AutoPartsAPI.Infrastructure.Entities;
 using AutoPartsAPI.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AutoPartsAPI.Infrastructure.Repositories
 {

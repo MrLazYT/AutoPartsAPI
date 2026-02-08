@@ -8,7 +8,7 @@ using AutoPartsAPI.Infrastructure.Interfaces;
 
 namespace AutoPartsAPI.Domain.Services
 {
-    public class OrderStatusService : IOrderStatusService
+    public class OrderStatusService : IEntityService<ReadOrderStatusDto, CreateOrderStatusDto, UpdateOrderStatusDto>
     {
         private readonly IEntityRepository<OrderStatus> _repository;
         private readonly IMapper _mapper;
@@ -19,7 +19,7 @@ namespace AutoPartsAPI.Domain.Services
             _mapper = mapper;
         }
 
-        public async Task<ReadOrderStatusDto> GetById(int id)
+        public async Task<ReadOrderStatusDto> GetByIdAsync(int id)
         {
             OrderStatus? orderStatus = await _repository.GetByIdAsync(id);
 
@@ -31,30 +31,36 @@ namespace AutoPartsAPI.Domain.Services
             return _mapper.Map<ReadOrderStatusDto>(orderStatus);
         }
 
-        public async Task<List<ReadOrderStatusDto>> GetAll()
+        public async Task<List<ReadOrderStatusDto>> GetAllAsync()
         {
             List<OrderStatus> orderStatuses = await _repository.GetAllAsync();
 
             return _mapper.Map<List<ReadOrderStatusDto>>(orderStatuses);
         }
 
-        public async Task Add(CreateOrderStatusDto createOrderStatusDto)
+        public async Task<CreateOrderStatusDto> AddAsync(CreateOrderStatusDto createOrderStatusDto)
         {
             OrderStatus orderStatus = _mapper.Map<OrderStatus>(createOrderStatusDto);
 
             await _repository.AddAsync(orderStatus);
+
+            return createOrderStatusDto;
         }
 
-        public async Task Update(UpdateOrderStatusDto updateOrderStatusDto)
+        public async Task<UpdateOrderStatusDto> UpdateAsync(UpdateOrderStatusDto updateOrderStatusDto)
         {
             OrderStatus orderStatus = _mapper.Map<OrderStatus>(updateOrderStatusDto);
 
             await _repository.UpdateAsync(orderStatus);
+
+            return updateOrderStatusDto;
         }
 
-        public async Task Delete(int id)
+        public async Task<ReadOrderStatusDto> DeleteAsync(int id)
         {
-            await _repository.DeleteAsync(id);
+            OrderStatus? orderStatus = await _repository.DeleteAsync(id);
+
+            return _mapper.Map<ReadOrderStatusDto>(orderStatus);
         }
     }
 }

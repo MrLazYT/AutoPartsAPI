@@ -1,3 +1,6 @@
+using AutoPartsAPI.Domain.DTO.Create;
+using AutoPartsAPI.Domain.DTO.Read;
+using AutoPartsAPI.Domain.DTO.Update;
 using AutoPartsAPI.Domain.Helpers;
 using AutoPartsAPI.Domain.Interfaces.Services;
 using AutoPartsAPI.Domain.Services;
@@ -49,10 +52,16 @@ namespace AutoPartsAPI
             );
 
             builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IOrderStatusService, OrderStatusService>();
+            builder.Services
+                .AddScoped<
+                    IEntityService<ReadOrderStatusDto, CreateOrderStatusDto, UpdateOrderStatusDto>,
+                    OrderStatusService>();
+            builder.Services
+                .AddScoped<IEntityService<ReadVendorDto, CreateVendorDto, UpdateVendorDto>, VendorService>();
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IEntityRepository<OrderStatus>, OrderStatusRepository>();
+            builder.Services.AddScoped<IEntityRepository<Vendor>, VendorsRepository>();
 
             var app = builder.Build();
 
