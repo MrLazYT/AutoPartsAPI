@@ -20,9 +20,9 @@ namespace AutoPartsAPI.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
-            List<ReadOrderStatusDto> orderStatuses = await _service.GetAllAsync();
+            List<ReadOrderStatusDto> readOrderStatusDtos = await _service.GetAllAsync();
 
-            return Ok(orderStatuses);
+            return Ok(readOrderStatusDtos);
         }
 
         [HttpGet("{id}")]
@@ -30,9 +30,9 @@ namespace AutoPartsAPI.Controllers
         {
             try
             {
-                ReadOrderStatusDto orderStatus = await _service.GetByIdAsync(id);
+                ReadOrderStatusDto readOrderStatusDto = await _service.GetByIdAsync(id);
 
-                return Ok(orderStatus);
+                return Ok(readOrderStatusDto);
             } catch (KeyNotFoundException)
             {
                 return NotFound();
@@ -42,25 +42,30 @@ namespace AutoPartsAPI.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Add([FromBody] CreateOrderStatusDto createOrderStatusDto)
         {
-            CreateOrderStatusDto orderStatus = await _service.AddAsync(createOrderStatusDto);
+            await _service.AddAsync(createOrderStatusDto);
 
-            return Ok(orderStatus);
+            return Ok(createOrderStatusDto);
         }
 
         [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateOrderStatusDto updateOrderStatusDto)
         {
-            UpdateOrderStatusDto orderStatus = await _service.UpdateAsync(updateOrderStatusDto);
+            await _service.UpdateAsync(updateOrderStatusDto);
 
-            return Ok(orderStatus);
+            return Ok(updateOrderStatusDto);
         }
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            ReadOrderStatusDto orderStatus = await _service.DeleteAsync(id);
+            ReadOrderStatusDto readOrderStatusDto = await _service.DeleteAsync(id);
 
-            return Ok(orderStatus);
+            if (readOrderStatusDto == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(readOrderStatusDto);
         }
     }
 }

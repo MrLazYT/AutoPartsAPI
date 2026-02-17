@@ -6,10 +6,10 @@ namespace AutoPartsAPI.Domain.Interfaces.Services
 {
     public interface IUserService
     {
-        public Task<ReadUserDto> GetById(string id);
-        public Task<List<ReadUserDto>> GetAll();
-        public Task Create(CreateUserDto createUserDto);
-        public Task Update(UpdateUserDto updateUserDto);
-        public Task Delete(string id);
+        public Task<ReadUserDto> GetByIdAsync(string id);
+        public Task<List<ReadUserDto>> GetAllAsync();
+        public Task<CreateUserDto> AddAsync(CreateUserDto createUserDto);
+        public Task<UpdateUserDto> UpdateAsync(UpdateUserDto updateUserDto);
+        public Task<ReadUserDto> DeleteAsync(string id);
     }
 }
