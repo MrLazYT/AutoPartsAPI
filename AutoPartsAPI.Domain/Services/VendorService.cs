@@ -23,6 +23,11 @@ namespace AutoPartsAPI.Domain.Services
         {
             Vendor? vendor = await _repository.GetByIdAsync(id);
 
+            if (vendor == null)
+            {
+                throw new Exception($"Vendor with id = {id} not found.");
+            }
+
             return _mapper.Map<ReadVendorDto>(vendor);
         }
 
@@ -54,6 +59,11 @@ namespace AutoPartsAPI.Domain.Services
         public async Task<ReadVendorDto> DeleteAsync(int id)
         {
             Vendor? vendor = await _repository.DeleteAsync(id);
+
+            if (vendor == null)
+            {
+                throw new Exception($"Vendor with id = {id} not found");
+            }
 
             return _mapper.Map<ReadVendorDto>(vendor);
         }

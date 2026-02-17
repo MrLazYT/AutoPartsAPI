@@ -60,6 +60,11 @@ namespace AutoPartsAPI.Domain.Services
         {
             OrderStatus? orderStatus = await _repository.DeleteAsync(id);
 
+            if (orderStatus == null)
+            {
+                throw new Exception($"OrderStatus with id = {id} not found.");
+            }
+
             return _mapper.Map<ReadOrderStatusDto>(orderStatus);
         }
     }

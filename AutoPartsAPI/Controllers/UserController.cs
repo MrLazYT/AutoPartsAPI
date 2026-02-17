@@ -33,7 +33,7 @@ namespace AutoPartsAPI.Controllers
                 ReadUserDto user = await _service.GetById(id);
 
                 return Ok(user);
-            } catch (Exception)
+            } catch (KeyNotFoundException)
             {
                 return NotFound();
             }

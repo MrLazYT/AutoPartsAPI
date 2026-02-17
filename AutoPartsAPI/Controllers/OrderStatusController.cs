@@ -33,11 +33,10 @@ namespace AutoPartsAPI.Controllers
                 ReadOrderStatusDto orderStatus = await _service.GetByIdAsync(id);
 
                 return Ok(orderStatus);
-            } catch (Exception)
+            } catch (KeyNotFoundException)
             {
                 return NotFound();
             }
-                 
         }
 
         [HttpPost("create")]
