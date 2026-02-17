@@ -34,7 +34,7 @@ namespace AutoPartsAPI.Controllers
                 ReadVendorDto vendor = await _service.GetByIdAsync(id);
 
                 return Ok(vendor);
-            } catch (Exception)
+            } catch (KeyNotFoundException)
             {
                 return NotFound();
             }
@@ -60,6 +60,11 @@ namespace AutoPartsAPI.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             ReadVendorDto vendor = await _service.DeleteAsync(id);
+
+            if (vendor == null)
+            {
+                return NotFound();
+            }
 
             return Ok(vendor);
         }

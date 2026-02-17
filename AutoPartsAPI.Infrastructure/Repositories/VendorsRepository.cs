@@ -38,10 +38,17 @@ namespace AutoPartsAPI.Infrastructure.Repositories
 
         public async Task<Vendor> UpdateAsync(Vendor vendor)
         {
-            _context.Update(vendor);
+            var existing = await GetByIdAsync(vendor.Id);
+
+            if (existing == null)
+            {
+                throw new KeyNotFoundException($"Vendor with id = {vendor.Id} not found.");
+            }
+
+            _context.Entry(existing).CurrentValues.SetValues(vendor);
             await _context.SaveChangesAsync();
 
-            return vendor;
+            return existing;
         }
 
         public async Task<Vendor?> DeleteAsync(int id)
