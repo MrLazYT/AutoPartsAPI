@@ -3,7 +3,6 @@ using AutoPartsAPI.Domain.DTO.Read;
 using AutoPartsAPI.Domain.DTO.Update;
 using AutoPartsAPI.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace AutoPartsAPI.Controllers
 {
@@ -21,9 +20,9 @@ namespace AutoPartsAPI.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
-            List<ReadVendorDto> vendors = await _service.GetAllAsync();
+            List<ReadVendorDto> readVendorDtos = await _service.GetAllAsync();
 
-            return Ok(vendors);
+            return Ok(readVendorDtos);
         }
 
         [HttpGet("{id}")]
@@ -31,9 +30,9 @@ namespace AutoPartsAPI.Controllers
         {
             try
             {
-                ReadVendorDto vendor = await _service.GetByIdAsync(id);
+                ReadVendorDto readVendorDto = await _service.GetByIdAsync(id);
 
-                return Ok(vendor);
+                return Ok(readVendorDto);
             } catch (KeyNotFoundException)
             {
                 return NotFound();
@@ -41,32 +40,32 @@ namespace AutoPartsAPI.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Add([FromBody] CreateVendorDto vendor)
+        public async Task<IActionResult> Add([FromBody] CreateVendorDto createVendorDto)
         {
-            await _service.AddAsync(vendor);
+            await _service.AddAsync(createVendorDto);
 
-            return Ok(vendor);
+            return Ok(createVendorDto);
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> Update([FromBody] UpdateVendorDto vendor)
+        public async Task<IActionResult> Update([FromBody] UpdateVendorDto UpdateVendorDto)
         {
-            await _service.UpdateAsync(vendor);
+            await _service.UpdateAsync(UpdateVendorDto);
 
-            return Ok(vendor);
+            return Ok(UpdateVendorDto);
         }
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            ReadVendorDto vendor = await _service.DeleteAsync(id);
+            ReadVendorDto readVendorDto = await _service.DeleteAsync(id);
 
-            if (vendor == null)
+            if (readVendorDto == null)
             {
                 return NotFound();
             }
 
-            return Ok(vendor);
+            return Ok(readVendorDto);
         }
     }
 }

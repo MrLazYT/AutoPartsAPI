@@ -20,9 +20,9 @@ namespace AutoPartsAPI.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
-            List<ReadUserDto> users = await _service.GetAll();
+            List<ReadUserDto> readUserDtos = await _service.GetAllAsync();
 
-            return Ok(users);
+            return Ok(readUserDtos);
         }
 
         [HttpGet("{id}")]
@@ -30,9 +30,9 @@ namespace AutoPartsAPI.Controllers
         {
             try
             {
-                ReadUserDto user = await _service.GetById(id);
+                ReadUserDto readUserDto = await _service.GetByIdAsync(id);
 
-                return Ok(user);
+                return Ok(readUserDto);
             } catch (KeyNotFoundException)
             {
                 return NotFound();
@@ -41,27 +41,32 @@ namespace AutoPartsAPI.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] CreateUserDto createUserDto)
+        public async Task<IActionResult> Add([FromBody] CreateUserDto createUserDto)
         {
-            await _service.Create(createUserDto);
+            await _service.AddAsync(createUserDto);
 
-            return Ok();
+            return Ok(createUserDto);
         }
 
         [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateUserDto updateUserDto)
         {
-            await _service.Update(updateUserDto);
+            await _service.UpdateAsync(updateUserDto);
 
-            return Ok();
+            return Ok(updateUserDto);
         }
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            await _service.Delete(id);
+            ReadUserDto readUserDto = await _service.DeleteAsync(id);
 
-            return Ok();
+            if (readUserDto == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(readUserDto);
         }
     }
 }
